@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Documentation/">
+    <File Path="Readme.md" />
+  </Folder>
+  <Project Path="HotelService.Database/HotelService.Database.sqlproj" Id="588bca4a-1684-4593-b0da-dbf9e7f0942b">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="HotelService.Shared/HotelService.Shared.csproj" Id="c1ebcb1a-b6da-468a-8a05-a7c87771b3a9" />
+  <Project Path="HotelService/HotelService.csproj" />
+</Solution>

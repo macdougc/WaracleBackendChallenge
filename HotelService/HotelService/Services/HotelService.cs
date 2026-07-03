@@ -1,0 +1,20 @@
+﻿using AutoMapper;
+using HotelService.Shared.Data;
+using HotelService.Shared.Dtos;
+using HotelService.Shared.Model;
+using static HotelService.Shared.Exceptions.NotFoundException;
+
+namespace HotelService.Services;
+
+public class HotelService(IHotelRepository hotelRepository, IMapper mapper) : IHotelService
+{
+
+    public async Task<HotelDto> GetHotelByNameAsync(string name)
+    {
+        var hotel = await hotelRepository.GetHotelByNameAsync(name);
+
+        EnsureWasFound(hotel, $"No hotel with name {name}");
+
+        return mapper.Map<HotelDto>(hotel);
+    }
+}
