@@ -6,5 +6,5 @@ public class Hotel
 
     public string Name { get; set; } = null!;
 
-    public ICollection<Room> Rooms { get; set; } = null!;
+    public virtual ICollection<Room> Rooms { get; set; } = null!;
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HotelService.Shared.Dtos;
-using HotelService.Shared.Model;
+﻿using HotelService.Shared.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelService.Shared.Data;
@@ -27,18 +22,11 @@ public class HotelRepository : IHotelRepository
             .FirstOrDefaultAsync(h => h.Name == name);
     }
 
-    public async Task<List<Hotel>> GetAllHotels()
+    public async Task<Booking?> GetBookingByBookingReferenceAsync(int bookingRefernce)
     {
-        return await _context.Hotels
-            .Include(h => h.Rooms)
-            .ToListAsync();
-    }
-
-    public async Task AddHotel(Hotel hotel)
-    {
-        if (hotel == null) throw new ArgumentNullException(nameof(hotel));
-
-        _context.Hotels.Add(hotel);
-        await _context.SaveChangesAsync();
+        return await _context.Bookings
+            .Include(b => b.Room)
+            .Include(b => b.User)
+            .FirstOrDefaultAsync(b => b.BookingReference == bookingRefernce);
     }
 }

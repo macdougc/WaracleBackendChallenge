@@ -1,18 +1,19 @@
-﻿using HotelService.Shared.Dtos;
-using Microsoft.AspNetCore.Http;
+﻿using HotelService.Services;
+using HotelService.Shared.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class HotelController : ControllerBase
+public class HotelController(IHotelService hotelService) : ControllerBase
 {
-
+    [HttpGet("{name}")]
     [ProducesResponseType<HotelDto>(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetHotelByName(string name)
+    public async Task<IActionResult> GetHotelByName([FromRoute]string name)
     {
-        // Implement logic to retrieve hotel by name
-        return Ok();
+        var hotel = await hotelService.GetHotelByNameAsync(name);
+
+        return Ok(hotel);
     }
 }

@@ -1,35 +1,20 @@
-﻿using System;
-using HotelService.Shared.Dtos;
-using HotelService.Shared.Model;
+﻿using HotelService.Shared.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelService.Shared.Data;
 
 public class HotelDBContext : DbContext
 {
-    private readonly string? _connectionString;
+    public DbSet<Hotel> Hotels { get; set; }
 
-    public HotelDBContext(DbContextOptions<HotelDBContext> options)
-        : base(options)
-    {
-    }
+    public DbSet<Room> Rooms { get; set; }
 
-    // Optional constructor used when creating the context directly with a connection string
-    public HotelDBContext(string connectionString)
-    {
-        _connectionString = connectionString;
-    }
-
-    public DbSet<Hotel> Hotels { get; set; } = null!;
-
-    public DbSet<Room> Rooms { get; set; } = null!;
+    public DbSet<Booking> Bookings { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured && !string.IsNullOrEmpty(_connectionString))
-        {
-            optionsBuilder.UseSqlServer(_connectionString);
-        }
+        optionsBuilder.UseSqlServer(
+            @"Server=NPE5690B4BC894;Database=HotelService;Integrated Security=True;Persist Security Info=False;Pooling=False;Multiple Active Result Sets=False;Encrypt=False;Trust Server Certificate=True");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +23,7 @@ public class HotelDBContext : DbContext
 
         modelBuilder.Entity<Hotel>(entity =>
         {
+            entity.ToTable("Hotel");
             entity.HasKey(h => h.Id);
             entity.HasMany(h => h.Rooms)
                   .WithOne(r => r.Hotel)
@@ -46,7 +32,21 @@ public class HotelDBContext : DbContext
 
         modelBuilder.Entity<Room>(entity =>
         {
+            entity.ToTable("Room");
             entity.HasKey(r => r.Id);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.ToTable("User");
+            entity.HasKey(r => r.Id);
+        });
+
+        modelBuilder.Entity<Booking>(entity =>
+        {
+            entity.ToTable("Booking");
+            entity.HasKey(r => r.BookingReference);
+            entity.Property(r => r.BookingReference).ValueGeneratedOnAdd();
         });
     }
 }

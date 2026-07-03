@@ -9,3 +9,8 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+
+-- Post-deployment includes disabled in build environment
+-- To enable seeding during publish, uncomment the following lines and ensure SQLCMD mode is supported by your deployment tool
+-- :r .\Seeding\Hotel.sql
+-- :r .\Seeding\Room.sql

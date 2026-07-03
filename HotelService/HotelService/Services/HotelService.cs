@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using HotelService.Shared.Data;
 using HotelService.Shared.Dtos;
-using HotelService.Shared.Model;
 using static HotelService.Shared.Exceptions.NotFoundException;
 
 namespace HotelService.Services;
