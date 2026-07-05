@@ -16,6 +16,7 @@ builder.Services.AddDbContext<HotelDBContext>();
 // Register application services
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IHotelService, HotelService.Services.HotelService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 // Add services to the container.
 
