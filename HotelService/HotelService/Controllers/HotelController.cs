@@ -10,9 +10,9 @@ public class HotelController(IHotelService hotelService) : ControllerBase
 {
     [HttpGet("{name}")]
     [ProducesResponseType<HotelDto>(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetHotelByName([FromRoute]string name)
+    public async Task<IActionResult> GetHotelByName([FromRoute]string name, CancellationToken cancellationToken)
     {
-        var hotel = await hotelService.GetHotelByNameAsync(name);
+        var hotel = await hotelService.GetHotelByNameAsync(name, cancellationToken);
 
         return Ok(hotel);
     }

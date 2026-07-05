@@ -9,4 +9,11 @@ public class Room
     public int Capacity { get; set; }
 
     public virtual Hotel Hotel { get; set; } = null!;
+
+    public virtual ICollection<Booking> Bookings { get; set; } = null!;
+
+    public void AddBooking(Booking booking)
+    {
+        (Bookings ?? []).Add(booking);
+    }
 }

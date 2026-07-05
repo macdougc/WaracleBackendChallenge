@@ -9,6 +9,8 @@ public class ExceptionActionFilter(ILogger<ExceptionActionFilter> logger) : IAct
     private static readonly Dictionary<Type, int> ExceptionStatusCodes = new()
     {
         { typeof(NotFoundException), StatusCodes.Status404NotFound },
+        { typeof(InternalServerErrorException), StatusCodes.Status500InternalServerError },
+        { typeof(ValidationFailedException), StatusCodes.Status400BadRequest },
     };
 
     public void OnActionExecuting(ActionExecutingContext context)

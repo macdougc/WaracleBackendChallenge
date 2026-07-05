@@ -8,9 +8,9 @@ namespace HotelService.Services;
 public class HotelService(IHotelRepository hotelRepository, IMapper mapper) : IHotelService
 {
 
-    public async Task<HotelDto> GetHotelByNameAsync(string name)
+    public async Task<HotelDto> GetHotelByNameAsync(string name, CancellationToken cancellationToken)
     {
-        var hotel = await hotelRepository.GetHotelByNameAsync(name);
+        var hotel = await hotelRepository.GetHotelByNameAsync(name, cancellationToken);
 
         EnsureWasFound(hotel, $"No hotel with name {name}");
 

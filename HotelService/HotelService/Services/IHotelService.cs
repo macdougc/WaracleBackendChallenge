@@ -4,5 +4,5 @@ namespace HotelService.Services;
 
 public interface IHotelService
 {
-    Task<HotelDto> GetHotelByNameAsync(string name);
+    Task<HotelDto> GetHotelByNameAsync(string name, CancellationToken cancellationToken);
 }
