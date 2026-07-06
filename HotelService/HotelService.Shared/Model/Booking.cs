@@ -12,7 +12,7 @@ public class Booking
 
     public int NumberOfPeople { get; set; }
 
-    public virtual Room Room { get; set; } = null!;
+    public string BookingEmail { get; set; } = null!;
 
-    public virtual User User { get; set; } = null!;
+    public virtual Room Room { get; set; } = null!;
 }

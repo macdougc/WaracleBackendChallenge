@@ -7,7 +7,6 @@ namespace HotelService.Services;
 
 public class HotelService(IHotelRepository hotelRepository, IMapper mapper) : IHotelService
 {
-
     public async Task<HotelDto> GetHotelByNameAsync(string name, CancellationToken cancellationToken)
     {
         var hotel = await hotelRepository.GetHotelByNameAsync(name, cancellationToken);
@@ -15,5 +14,12 @@ public class HotelService(IHotelRepository hotelRepository, IMapper mapper) : IH
         EnsureWasFound(hotel, $"No hotel with name {name}");
 
         return mapper.Map<HotelDto>(hotel);
+    }
+
+    public async Task<IEnumerable<RoomDto>> GetAvailableRoomsAsync(SearchAvailableRoomsDto searchAvailableRoomsDto, CancellationToken cancellationToken)
+    {
+        var rooms = await hotelRepository.GetAvailableRoomsAsync(searchAvailableRoomsDto, cancellationToken);
+
+        return rooms != null ? mapper.Map<IEnumerable<RoomDto>>(rooms) : [];
     }
 }

@@ -10,7 +10,5 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
--- Post-deployment includes disabled in build environment
--- To enable seeding during publish, uncomment the following lines and ensure SQLCMD mode is supported by your deployment tool
--- :r .\Seeding\Hotel.sql
--- :r .\Seeding\Room.sql
+ :r .\Seeding\Hotel.sql
+ :r .\Seeding\Room.sql

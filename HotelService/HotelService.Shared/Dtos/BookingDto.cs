@@ -12,9 +12,9 @@ public class BookingDto
 
     public DateTime BookedDate { get; set; }
 
+    public string BookingEmail { get; set; } = null!;
+
     public int NumberOfPeople { get; set; }
 
     public RoomDto Room { get; set; } = null!;
-
-    public UserDto User { get; set; } = null!;
 }

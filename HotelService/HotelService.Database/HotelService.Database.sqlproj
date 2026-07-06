@@ -62,7 +62,6 @@
   <ItemGroup>
     <Build Include="Tables\Room.sql" />
     <Build Include="Tables\Hotel.sql" />
-    <Build Include="Tables\User.sql" />
     <None Include="Seeding\Room.sql" />
     <Build Include="Tables\Booking.sql" />
   </ItemGroup>

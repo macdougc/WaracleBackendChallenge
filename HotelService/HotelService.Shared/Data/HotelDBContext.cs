@@ -36,12 +36,6 @@ public class HotelDBContext : DbContext
             entity.HasKey(r => r.Id);
         });
 
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.ToTable("User");
-            entity.HasKey(r => r.Id);
-        });
-
         modelBuilder.Entity<Booking>(entity =>
         {
             entity.ToTable("Booking");

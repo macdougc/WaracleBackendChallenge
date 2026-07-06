@@ -7,5 +7,6 @@
     <Deploy />
   </Project>
   <Project Path="HotelService.Shared/HotelService.Shared.csproj" Id="c1ebcb1a-b6da-468a-8a05-a7c87771b3a9" />
+  <Project Path="HotelService.Tests/HotelService.Tests.csproj" />
   <Project Path="HotelService/HotelService.csproj" />
 </Solution>

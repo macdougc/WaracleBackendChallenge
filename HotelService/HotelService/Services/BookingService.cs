@@ -4,6 +4,7 @@ using HotelService.Shared.Dtos;
 using HotelService.Shared.Exceptions;
 using HotelService.Shared.Model;
 using static HotelService.Shared.Exceptions.NotFoundException;
+using static HotelService.Shared.Helpers.DateHelper;
 
 namespace HotelService.Services;
 
@@ -34,6 +35,7 @@ public class BookingService(IHotelRepository hotelRepository, IMapper mapper) : 
             NumberOfPeople = createRoomBookingDto.NumberOfPeople,
             Room = room,
             BookedDate = DateTime.UtcNow,
+            BookingEmail = createRoomBookingDto.BookingEmail,
         };
 
         try
@@ -59,8 +61,7 @@ public class BookingService(IHotelRepository hotelRepository, IMapper mapper) : 
         {
             throw new ValidationFailedException($"Number of people exceeds room capacity of {room.Capacity}");
         }
-        if (room.Bookings.Any(b => (b.StartDate <= createRoomBookingDto.EndDate && b.StartDate >= createRoomBookingDto.StartDate)
-                                    || (b.EndDate <= createRoomBookingDto.EndDate && b.EndDate >= createRoomBookingDto.StartDate)))
+        if (room.Bookings != null && room.Bookings.Any(b => DoDatesIntersect(b.StartDate, b.EndDate, createRoomBookingDto.StartDate, createRoomBookingDto.EndDate)))
         {
             throw new ValidationFailedException("Room is already booked for the selected dates");
         }

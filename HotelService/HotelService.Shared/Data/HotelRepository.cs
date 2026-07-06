@@ -1,5 +1,7 @@
-﻿using HotelService.Shared.Model;
+﻿using HotelService.Shared.Dtos;
+using HotelService.Shared.Model;
 using Microsoft.EntityFrameworkCore;
+using static HotelService.Shared.Helpers.DateHelper;
 
 namespace HotelService.Shared.Data;
 
@@ -26,7 +28,6 @@ public class HotelRepository : IHotelRepository
     {
         return await _context.Bookings
             .Include(b => b.Room)
-            .Include(b => b.User)
             .FirstOrDefaultAsync(b => b.BookingReference == bookingRefernce, cancellationToken);
     }
 
@@ -35,6 +36,16 @@ public class HotelRepository : IHotelRepository
         return await _context.Rooms
             .Include(r => r.Bookings)
             .FirstOrDefaultAsync(r => r.Id == roomId, cancellationToken);
+    }
+
+    public async Task<IEnumerable<Room>?> GetAvailableRoomsAsync(SearchAvailableRoomsDto searchAvailableRoomsDto, CancellationToken cancellationToken)
+    {
+        return await _context.Rooms
+            .Include(h => h.Bookings)
+            .Where(h => h.Capacity >= searchAvailableRoomsDto.NumberOfPeople &&
+                        (h.Bookings == null || !h.Bookings.Any(b => (b.StartDate <= searchAvailableRoomsDto.EndDate && b.StartDate >= searchAvailableRoomsDto.StartDate)
+                                                                    || (b.EndDate <= searchAvailableRoomsDto.EndDate && b.EndDate >= searchAvailableRoomsDto.StartDate))))
+            .ToListAsync(cancellationToken);
     }
 
     public void AddBooking(Booking booking)
