@@ -62,13 +62,20 @@
   <ItemGroup>
     <Build Include="Tables\Room.sql" />
     <Build Include="Tables\Hotel.sql" />
-    <None Include="Seeding\Room.sql" />
+    <None Include="Seeding\Room.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Build Include="Tables\Booking.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Seeding\Hotel.sql" />
+    <None Include="Seeding\Hotel.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Seeding\RemoveAllData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

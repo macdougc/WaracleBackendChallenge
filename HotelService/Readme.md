@@ -13,3 +13,4 @@
 . Add User Services and authentication.
 . Add checks for threadsafe room booking (lock row on read on room?).
 . Add FluentValidation for requests
+. Publish to Azure (multiple errors when trying to setup free Azure)
