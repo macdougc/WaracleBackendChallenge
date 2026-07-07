@@ -22,4 +22,14 @@ public class HotelService(IHotelRepository hotelRepository, IMapper mapper) : IH
 
         return rooms != null ? mapper.Map<IEnumerable<RoomDto>>(rooms) : [];
     }
+
+    public async Task CreateSeedingData(CancellationToken cancellationToken)
+    {
+        await hotelRepository.CreateSeedingData(cancellationToken);
+    }
+
+    public async Task RemoveAllData(CancellationToken cancellationToken)
+    {
+        await hotelRepository.RemoveAllData(cancellationToken);
+    }
 }

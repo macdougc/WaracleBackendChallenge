@@ -16,4 +16,8 @@ public interface IHotelRepository
     void AddBooking(Booking booking);
 
     Task SaveChangesAsync(CancellationToken cancellationToken);
+
+    Task CreateSeedingData(CancellationToken cancellationToken);
+
+    Task RemoveAllData(CancellationToken cancellationToken);
 }

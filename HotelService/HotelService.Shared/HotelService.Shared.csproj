@@ -17,4 +17,13 @@
     <Folder Include="Common\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\SqlScripts\CreateSeededData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\SqlScripts\RemoveAllData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

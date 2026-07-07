@@ -9,6 +9,8 @@ public class HotelRepository : IHotelRepository
 {
     private readonly HotelDBContext _context;
 
+    private readonly string SqlScriptLocation = "..\\..\\..\\..\\HotelService.Shared\\bin\\Debug\\net10.0\\Data\\SqlScripts\\";
+
     public HotelRepository(HotelDBContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
@@ -46,6 +48,20 @@ public class HotelRepository : IHotelRepository
                         (h.Bookings == null || !h.Bookings.Any(b => (b.StartDate <= searchAvailableRoomsDto.EndDate && b.StartDate >= searchAvailableRoomsDto.StartDate)
                                                                     || (b.EndDate <= searchAvailableRoomsDto.EndDate && b.EndDate >= searchAvailableRoomsDto.StartDate))))
             .ToListAsync(cancellationToken);
+    }
+
+    public async Task CreateSeedingData(CancellationToken cancellationToken)
+    {
+        var sql = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + SqlScriptLocation + "CreateSeededData.sql");
+        
+        await _context.Database.ExecuteSqlRawAsync(sql, cancellationToken);
+    }
+
+    public async Task RemoveAllData(CancellationToken cancellationToken)
+    {
+        var sql = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + SqlScriptLocation + "RemoveAllData.sql");
+
+        await _context.Database.ExecuteSqlRawAsync(sql, cancellationToken);
     }
 
     public void AddBooking(Booking booking)
